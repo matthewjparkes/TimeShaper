@@ -1,0 +1,58 @@
+/* Bottom bar */ 
+
+.BottomBar {
+    display: flex;
+    margin-left: 1em;
+    margin-right: 1em;
+    }
+    
+    .LinkList{ 
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      opacity: 0.5;
+    }
+    
+    .LinkItems:hover {
+      cursor: pointer;
+      text-decoration: underline;
+      color: #4EAF50;
+      opacity: 1;
+    }
+    
+    .LinkItems{
+      margin-block-start: 0.5em;
+      margin-block-end: 0.5em;
+    }
+    
+    
+    .SignatureContainer {
+      text-align: right;
+      opacity: 0.5;
+      float: right;
+      margin-left: auto;
+    
+    }
+    
+    .SignatureContainer p {
+      margin-block-end: 0.5em;
+      margin-block-start: 0.5em;
+    }
+    
+    .ImageLinkContainer{
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 1em;
+      align-items: center;
+    }
+    
+    .SocialItem {
+      width: 2em;
+      margin-left: 1em;
+      margin-right: 1em;
+      float: right;
+    }
+    
+    .SocialItem:hover {
+      cursor: pointer;
+    }

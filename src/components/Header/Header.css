@@ -1,0 +1,82 @@
+.App-header {
+    background-color: #FFFFFF;
+    height: 20%;
+    box-shadow: 0 10px 30px #ebecf0;
+    position: sticky;
+    top: 0;
+  
+  }
+  
+  .NavContainer{
+    color: #2E4057;
+    display: flex;
+    margin-left: 1em;
+    margin-right: 1em;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .NavBar{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 1em;
+    align-items: center;
+  }
+  
+  .NonBox {
+    margin: 1em 1em 1em 1em;
+  }
+  
+  .NonBox:hover {
+    color: #4EAF50;
+    cursor: crosshair;
+  }
+  .Box {
+    margin: 1em 1em 1em 1em;
+  }
+  
+  .ColouredBox {
+    background-color: #F9BF45;
+    border-radius: 25px;
+    text-align: center;
+    padding: 0.75em;
+  }
+  
+  .BigLogin {
+    width: 15%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1em;
+    height: auto;
+    display: block;
+    background-color: #F9BF45;
+    border-radius: 25px;
+    text-align: center;
+    padding: 0.75em;
+    margin-top: 1em;
+    font-size: 2em;
+    color: #2E4057;
+  }
+  
+  .ColouredBox:hover {
+    background-color: #4EAF50;
+    color: #2E4057;
+    cursor: pointer;
+  
+  }
+  
+  .BigLogin:hover {
+    background-color: #4EAF50;
+    color: #2E4057;
+    cursor: pointer;
+  
+  }
+
+  
+  .Title {
+    color: #2E4057;
+  }
+  
+  .accent {
+    color: #4EAF50; 
+  }
