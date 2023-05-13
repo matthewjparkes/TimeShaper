@@ -5,6 +5,7 @@ import Header from "./components/Header/Header";
 import Logo from "./Files/unseen-studio-s9CC2SKySJM-unsplash.jpg"
 import Login from "./components/Login/login";
 import Register from "./components/Register/register";
+import TimeLineApp from "./components/TimeLineApp/TimeLineApp";
 import './App.css';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         </Route>
         <Route path ='/login' element = {<Login/>} />
         <Route path ='/register' element = {<Register/>}/>
+        <Route path = '/app'element = {<TimeLineApp/>} />
       </Routes>
       <Footer></Footer>
     </Router>
