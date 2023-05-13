@@ -18,9 +18,9 @@ function Footer() {
               <p>TimeShaper by Matthew Parkes</p>
               <p>A Timeline Creation App</p>
               <ul className="ImageLinkContainer">
-                <img src={Twitter} className="SocialItem"></img>
-                <img src={Github} className="SocialItem"></img>
-                <img src={MailLogo}className="SocialItem"></img>
+                <a href="https://twitter.com/matthewparkes97"><img src={Twitter} className="SocialItem" ></img></a>
+                <a href="https://github.com/matthewjparkes"><img src={Github} className="SocialItem"></img></a>
+                <a href="mailto:matthew.parkes123@googlemail.com"><img src={MailLogo}className="SocialItem"></img></a>
               </ul>
           </div>
         </div>

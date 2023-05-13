@@ -1,0 +1,57 @@
+.RegisterContainer{
+    width: 40%;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5%;
+    height: auto;
+    border-radius: 50px;
+    display: block;
+    background-color: white;
+    color:#2E4057;
+    box-shadow: 2px 6px 15px -1px rgba(122,122,122,1);
+    padding: 2em;
+
+}
+
+.RegisterContainer h1 {
+    text-align: center;
+}
+
+
+.InputForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.InputForm div {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+label {
+    padding: 1em;
+}
+
+input [type='text'] {
+    width: 40%;
+
+}
+
+
+.LoginForm {
+    width: 100%
+}
+
+.LoginButtons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.LoginButtons .ColouredBox{
+    margin-bottom: 1em;
+    width: 25%;
+}
