@@ -32,3 +32,4 @@ export const CanvasScript = () => {
 
 // Read this: https://medium.com/@pdx.lucasm/canvas-with-react-js-32e133c05258
 // Also this for the future https://stackoverflow.com/questions/3523852/how-to-save-a-canvas-drawing
+//https://code.pieces.app/blog/draw-interactive-shapes-react-canvas-api
