@@ -8,5 +8,11 @@
     display: block;
     margin-top: 2em;
     margin-bottom: 2em;
+    cursor: pointer;
     
 }
+
+#TimeLineApp canvas {
+    width: 100%;
+    height: 100%;
+  }
