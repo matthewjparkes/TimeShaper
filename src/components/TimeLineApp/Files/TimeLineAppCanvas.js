@@ -5,6 +5,24 @@ const TimeLineAppCanvas = props => {
     const canvasRef = useRef(null);
     const [coords, handleCoords] = MousePosition(true);
 
+ useEffect(() => {
+  const handleResize = () => {
+    if (canvasRef.current) {
+      const canvas = canvasRef.current;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+    }
+  };
+
+  handleResize();
+  window.addEventListener("resize", handleResize);
+
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  };
+}, []);
+
     return <canvas ref={canvasRef} {...props}
     onClick={(e) => {
       handleCoords((e));
