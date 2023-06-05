@@ -7,6 +7,8 @@ import Login from "./components/Login/login";
 import Register from "./components/Register/register";
 import TimeLineApp from "./components/TimeLineApp/TimeLineApp";
 import './App.css';
+import CreatePage1 from "./components/CreatePage1/CreatePage1";
+import CreatePage2 from "./components/CreatePage2/CreatePage2";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
         <Route path ='/login' element = {<Login/>} />
         <Route path ='/register' element = {<Register/>}/>
         <Route path = '/app'element = {<TimeLineApp/>} />
+        <Route path = '/create1' element = {<CreatePage1/>} />
+        <Route path = '/create2' element = {<CreatePage2/>} />
       </Routes>
       <Footer></Footer>
     </Router>

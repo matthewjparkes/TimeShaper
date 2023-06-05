@@ -37,7 +37,7 @@ function Register (){
                 </div>
             </div>
             <div className='LoginButtons'>
-                <Link className='ColouredBox' to='/app'>Register</Link>
+                <Link className='ColouredBox' to='/create1'>Register</Link>
             </div>
         </form>
 
