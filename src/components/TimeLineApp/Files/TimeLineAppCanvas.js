@@ -17,6 +17,11 @@ const TimeLineAppCanvas = props => {
     ctx.roundRect((canvasW - (canvasW*0.35))/2, (canvasH - (canvasH*0.125)), (canvasW*0.35), (canvasH*0.125), [20, 20, 0, 0]);
     ctx.fill();
 
+    ctx.beginPath();
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, ((canvasH - (canvasH*0.05))/2) - (canvasH*0.0625) , (canvasW), (canvasH*0.005));
+    ctx.fill();
+
   }
   const handleResize = () => {
 
@@ -41,7 +46,7 @@ const TimeLineAppCanvas = props => {
   return () => {
     window.removeEventListener("resize", handleResize);
   };
-}, [canvasRef.current.width, canvasRef.current.height]);
+}, [canvasH, canvasW]);
 
     return <canvas ref={canvasRef} {...props}
     onClick={(e) => {
