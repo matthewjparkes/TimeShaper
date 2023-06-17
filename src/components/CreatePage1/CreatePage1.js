@@ -2,7 +2,15 @@ import { Router, Link } from 'react-router-dom'
 import './CreatePage1.css'
 
 
-function CreatePage1() {
+const CreatePage1 = props => {
+
+    const handleThemeChange = (e) => {
+        props.SetTheme(e.target.value)
+    }
+
+    const handleTitleChange = (e) => {
+        props.SetTitle(e.target.value)
+    }
     return (
         <div>
             <div className="CreatePageContainer">
@@ -11,11 +19,11 @@ function CreatePage1() {
                     <div className ="InputForm">
                         <div>
                             <label for='title'>Title</label>
-                            <input type= 'text' id='title'></input> <br/>
+                            <input type= 'text' id='title' onChange={handleTitleChange}></input> <br/>
                         </div>
                         <div>
                             <label for='theme' id ='theme'>Theme</label>
-                            <input type= 'text' id='theme'></input>
+                            <input type= 'text' id='theme' onChange={handleThemeChange}></input>
                         </div>
                     </div>
                     <div className='NextButtons'>

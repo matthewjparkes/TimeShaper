@@ -1,7 +1,7 @@
 import React, {useRef, useEffect, useState} from 'react'
 import MousePosition from './MouseCoordinates';
 
-const TimeLineAppCanvas = props => {
+const TimeLineAppCanvas = (props, Title) => {
     const canvasRef = useRef(null);
     const [coords, handleCoords] = MousePosition(true);
     const [canvasH, setCanvasH] = useState();
@@ -10,6 +10,35 @@ const TimeLineAppCanvas = props => {
 
 
  useEffect(() => {
+
+  const drawDate = (ctx) => {
+    ctx.font = "10px Zen Dots";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.fillText(new Date(props.StartDate).getFullYear().toString(), canvasW - (canvasW*0.95), canvasH/2)
+    ctx.fillText(new Date(props.EndDate).getFullYear().toString(), canvasW - (canvasW*0.05), canvasH/2)
+
+  }
+
+  const drawIntervals = (ctx) => {
+    
+    const StartDateFigure = new Date(props.StartDate)
+    const EndDateFigure = new Date(props.EndDate)
+    const TimeLength = EndDateFigure.getFullYear() - StartDateFigure.getFullYear()
+    const IntervalCalc = props.TimeType === 'Yearly' ? 1 : TimeLength/ props.Intervals
+    const WidthCalc = 0.9/(props.TimeType === 'Yearly'? TimeLength : props.Intervals)
+    let DateArray = [StartDateFigure.getFullYear()];
+    for(let i = 0; i < (props.TimeType === 'Yearly'? TimeLength : props.Intervals) - 1; i ++) {
+    let NewDate = Math.round(DateArray[i] + IntervalCalc)
+    DateArray.push(NewDate);
+    ctx.font = "10px Zen Dots";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.fillText(NewDate, canvasW - (canvasW * (0.95 - (WidthCalc * (i+1)))), canvasH/2)
+    }
+  }
+
+
   const drawInterface = () => {
     const ctx = canvasRef.current.getContext("2d");
     ctx.beginPath();
@@ -21,6 +50,13 @@ const TimeLineAppCanvas = props => {
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, ((canvasH - (canvasH*0.05))/2) - (canvasH*0.0625) , (canvasW), (canvasH*0.005));
     ctx.fill();
+
+    ctx.font = "30px Zen Dots";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.fillText(props.Title, canvasW/2, canvasH - (canvasH *0.90))
+    drawDate(ctx)
+    drawIntervals(ctx);
 
   }
   const handleResize = () => {
