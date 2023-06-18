@@ -9,6 +9,7 @@ const CreatePage2= props => {
     }
     const handleStartDateChange =(e)=>{
         props.SetStartDate(e.target.value)
+        console.log('Start Date Changed')
     }
     const handleEndDateChange =(e)=>{
         props.SetEndDate(e.target.value)
@@ -23,19 +24,28 @@ const CreatePage2= props => {
                 <form className = "CreatePageForm">
                     <div className ="InputForm">
                         <div>
-                            <label for='type'>Time Type</label>
-                                <select name="type" id="type" onChange={handleTimeTypeChange}>
-                                    <option value="Yearly">Yearly</option>
-                                    <option value="Monthy">Monthly</option>
-                                </select>
-                        </div>
-                        <div>
                             <label for='theme' id ='theme'>Start</label>
                             <input type= 'date' id='theme' onSelect={handleStartDateChange}></input>
                         </div>
                         <div>
                             <label for='title'>End</label>
                             <input type= 'date' id='title' onSelect={handleEndDateChange}></input> <br/>
+                        </div>
+                        <div>
+                            <label for='type'>Time Type</label>
+                                <select name="type" id="type" onChange={handleTimeTypeChange}>
+                                    <option value="Hourly">Hourly</option>
+                                    <option value="Daily">Daily</option>
+                                    <option value="Monthy">Monthly</option>
+                                    <option value="Yearly">Yearly</option>
+                                    <option value="2 Years">2 Years</option>
+                                    <option value="5 Years">5 Years</option>
+                                    <option value="10 Years">10 Years</option>
+                                    <option value="20 Years">20 Years</option>
+                                    <option value="20 Years">25 Years</option>
+                                    <option value="50 Years">50 Years</option>
+                                    <option value="100 Years">100 Years</option>
+                                </select>
                         </div>
                         <div>
                             <label for='theme' id ='theme'>Intervals</label>

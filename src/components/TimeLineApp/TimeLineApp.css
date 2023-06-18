@@ -9,10 +9,12 @@
     margin-top: 2em;
     margin-bottom: 2em;
     cursor: pointer;
-    
+    overflow: scroll;
+        
 }
 
+
 #TimeLineApp canvas {
-    width: 100%;
-    height: 100%;
+    width: 200%;
+    height: 200%;
   }

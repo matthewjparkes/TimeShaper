@@ -23,12 +23,63 @@ const TimeLineAppCanvas = (props, Title) => {
   const drawIntervals = (ctx) => {
     
     const StartDateFigure = new Date(props.StartDate)
-    const EndDateFigure = new Date(props.EndDate)
-    const TimeLength = EndDateFigure.getFullYear() - StartDateFigure.getFullYear()
-    const IntervalCalc = props.TimeType === 'Yearly' ? 1 : TimeLength/ props.Intervals
-    const WidthCalc = 0.9/(props.TimeType === 'Yearly'? TimeLength : props.Intervals)
-    let DateArray = [StartDateFigure.getFullYear()];
-    for(let i = 0; i < (props.TimeType === 'Yearly'? TimeLength : props.Intervals) - 1; i ++) {
+    const EndDateFigure = new Date(props.EndDate) 
+    let TimeLength = 0;
+    let IntervalCalc = 0;
+    let WidthCalc = 0;
+    let DateArray = [];
+
+    switch ((props.TimeType)) {
+      case 'Yearly':
+        TimeLength = EndDateFigure.getFullYear() - StartDateFigure.getFullYear();
+        IntervalCalc = 1
+        DateArray.push(StartDateFigure.getFullYear())
+        break;
+      case '10 Years': 
+      TimeLength = EndDateFigure.getFullYear() - StartDateFigure.getFullYear();
+      IntervalCalc = 10;
+      DateArray.push(StartDateFigure.getFullYear())
+      break;
+      case '2 Years': 
+      TimeLength = EndDateFigure.getFullYear() - StartDateFigure.getFullYear();
+      IntervalCalc = 2;
+      DateArray.push(StartDateFigure.getFullYear())
+      break;
+      case '5 Years': 
+      TimeLength = EndDateFigure.getFullYear() - StartDateFigure.getFullYear();
+      IntervalCalc = 5;
+      DateArray.push(StartDateFigure.getFullYear())
+      break;
+      case '20 Years': 
+      TimeLength = EndDateFigure.getFullYear() - StartDateFigure.getFullYear();
+      IntervalCalc = 20;
+      DateArray.push(StartDateFigure.getFullYear())
+      break;
+      case '20 Years': 
+      TimeLength = EndDateFigure.getFullYear() - StartDateFigure.getFullYear();
+      IntervalCalc = 25;
+      DateArray.push(StartDateFigure.getFullYear())
+      break;
+      case '50 Years': 
+      TimeLength = EndDateFigure.getFullYear() - StartDateFigure.getFullYear();
+      IntervalCalc = 50;
+      DateArray.push(StartDateFigure.getFullYear())
+      break;
+      case '100 Years': 
+      TimeLength = EndDateFigure.getFullYear() - StartDateFigure.getFullYear();
+      IntervalCalc = 100;
+      DateArray.push(StartDateFigure.getFullYear())
+      break;
+      default:
+      TimeLength = EndDateFigure.getFullYear() - StartDateFigure.getFullYear();
+      IntervalCalc = 1
+      DateArray.push(StartDateFigure.getFullYear())
+        break;
+    }
+
+    WidthCalc = (0.9/(TimeLength/IntervalCalc));
+
+    for(let i = 0; i < TimeLength - 1; i ++) {
     let NewDate = Math.round(DateArray[i] + IntervalCalc)
     DateArray.push(NewDate);
     ctx.font = "10px Zen Dots";
