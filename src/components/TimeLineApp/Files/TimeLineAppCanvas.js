@@ -6,6 +6,8 @@ const TimeLineAppCanvas = (props, Title) => {
     const [coords, handleCoords] = MousePosition(true);
     const [canvasH, setCanvasH] = useState();
     const [canvasW, setCanvasW] = useState();
+    const [TimeLineItem, setTimeLineItem] = useState('None');
+
 
 
 
@@ -97,6 +99,38 @@ const TimeLineAppCanvas = (props, Title) => {
     ctx.roundRect((canvasW - (canvasW*0.35))/2, (canvasH - (canvasH*0.125)), (canvasW*0.35), (canvasH*0.125), [20, 20, 0, 0]);
     ctx.fill();
 
+    if(TimeLineItem === 'Event'){
+      ctx.beginPath();
+      ctx.fillStyle = "#F9BF45";
+      ctx.roundRect((canvasW - (canvasW*0.325))/2, (canvasH - (canvasH*0.18)), (canvasW*0.1), (canvasH*0.06), [20, 20, 0, 0]);
+      ctx.fill();
+    } else if(TimeLineItem === 'Explainer'){
+      ctx.beginPath();
+      ctx.fillStyle = "#F9BF45";
+      ctx.roundRect((canvasW - (canvasW*0.1335))/2, (canvasH - (canvasH*0.18)), (canvasW*0.13), (canvasH*0.06), [20, 20, 0, 0]);
+      ctx.fill();
+    } else if (TimeLineItem === 'Period'){
+      ctx.beginPath();
+      ctx.fillStyle = "#F9BF45";
+      ctx.roundRect((canvasW - (canvasW*0.435)), (canvasH - (canvasH*0.18)), (canvasW*0.1), (canvasH*0.06), [20, 20, 0, 0]);
+      ctx.fill();
+    }
+
+    ctx.font = "20px Zen Dots";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.fillText('Event', (canvasW/2)*0.775, TimeLineItem === 'Event' ? canvasH - (canvasH *0.13) : canvasH - (canvasH *0.05));
+
+    ctx.font = "20px Zen Dots";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.fillText('Explainer', (canvasW/2), TimeLineItem === 'Explainer' ? canvasH - (canvasH *0.13) : canvasH - (canvasH *0.05));
+
+    ctx.font = "20px Zen Dots";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.fillText('Period', (canvasW/2)*1.23, TimeLineItem === 'Period' ? canvasH - (canvasH *0.13) : canvasH - (canvasH *0.05));
+
     ctx.beginPath();
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, ((canvasH - (canvasH*0.05))/2) - (canvasH*0.0625) , (canvasW), (canvasH*0.005));
@@ -133,12 +167,19 @@ const TimeLineAppCanvas = (props, Title) => {
   return () => {
     window.removeEventListener("resize", handleResize);
   };
-}, [canvasH, canvasW]);
+}, [canvasH, canvasW, TimeLineItem]);
 
     return <canvas ref={canvasRef} {...props}
     onClick={(e) => {
       handleCoords((e));
-      if (canvasRef.current) {
+      if(coords.x > (canvasW/2)*0.70 && coords.x <= ((canvasW/2)*0.85) && coords.y > (canvasH - (canvasH *0.125))) {
+        setTimeLineItem('Event');
+        console.log('change')
+      } else if (coords.x > (canvasW/2)*0.85 && coords.x < ((canvasW/2)*1.1) && coords.y > (canvasH - (canvasH *0.125))){
+        setTimeLineItem('Explainer');
+      } else if (coords.x > (canvasW/2)*1.101 && coords.x < ((canvasW/2)*1.3) && coords.y > (canvasH - (canvasH *0.125))){
+        setTimeLineItem('Period')
+      } else if (canvasRef.current) {
         const ctx = canvasRef.current.getContext("2d");
         ctx.strokeStyle = "#0095DD";
         ctx?.strokeRect(coords.x, coords.y, 20, 30);

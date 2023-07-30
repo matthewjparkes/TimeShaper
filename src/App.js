@@ -36,7 +36,7 @@ const App = () => {
         </Route>
         <Route path ='/login' element = {<Login/>} />
         <Route path ='/register' element = {<Register/>}/>
-        <Route path = '/app'element = {<TimeLineApp Title = {Title} StartDate = {StartDate} EndDate = {EndDate} Intervals = {Intervals} TimeType = {TimeType}/>} />
+        <Route path = '/app'element = {<TimeLineApp Title = {Title} StartDate = {StartDate} EndDate = {EndDate} Intervals = {Intervals} TimeType = {TimeType} />} />
         <Route path = '/create1' element = {<CreatePage1 SetTitle = {setTitle} SetTheme = {setTheme}/>} />
         <Route path = '/create2' element = {<CreatePage2 SetStartDate = {setStartDate} SetEndDate={setEndDate} SetIntervals={setIntervals} SetTimeType={setTimeType}/>} />
       </Routes>
