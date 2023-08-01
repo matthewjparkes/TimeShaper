@@ -89,7 +89,7 @@ const TimeLineAppCanvas = (props, Title) => {
 
     WidthCalc = (0.9/(TimeLength/IntervalCalc));
 
-    for(let i = 0; i < TimeLength - 1; i ++) {
+    for(let i = 0; i < (TimeLength/IntervalCalc) - 1; i ++) {
     let NewDate = Math.round(DateArray[i] + IntervalCalc)
     DateArray.push(NewDate);
     ctx.font = "10px Zen Dots";
