@@ -1,5 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react'
 import MousePosition from './MouseCoordinates';
+import TimeLineApp from '../TimeLineApp';
 
 const TimeLineAppCanvas = (props, Title) => {
     const canvasRef = useRef(null);
@@ -7,6 +8,10 @@ const TimeLineAppCanvas = (props, Title) => {
     const [canvasH, setCanvasH] = useState();
     const [canvasW, setCanvasW] = useState();
     const [TimeLineItem, setTimeLineItem] = useState('None');
+    const [MouseMovement, setMouseMovement] = useState([0, 0]);
+    const [DateArrayList, setDateArrayList] = useState();
+    const [DateArrayLocList, setDateArrayLocList] = useState();
+    const [WidthCalcMain, setWidthCalc] = useState();
 
 
 
@@ -30,6 +35,9 @@ const TimeLineAppCanvas = (props, Title) => {
     let IntervalCalc = 0;
     let WidthCalc = 0;
     let DateArray = [];
+    let DateArrayLoc = [[canvasW - (canvasW * (0.95)), 0]];
+    let YearPointer = 1980;
+
 
     switch ((props.TimeType)) {
       case 'Yearly':
@@ -87,8 +95,14 @@ const TimeLineAppCanvas = (props, Title) => {
     ctx.font = "10px Zen Dots";
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
-    ctx.fillText(NewDate, canvasW - (canvasW * (0.95 - (WidthCalc * (i+1)))), canvasH/2)
+    ctx.fillText(NewDate, canvasW - (canvasW * (0.95 - (WidthCalc * (i+1)))), canvasH/2);
+    DateArrayLoc.push([canvasW - (canvasW * (0.95 - (WidthCalc * (i+1)))), canvasH/2 ])
+
     }
+    setDateArrayList(DateArray);
+    setDateArrayLocList(DateArrayLoc);
+    setWidthCalc(WidthCalc);
+  
   }
 
 
@@ -104,6 +118,17 @@ const TimeLineAppCanvas = (props, Title) => {
       ctx.fillStyle = "#F9BF45";
       ctx.roundRect((canvasW - (canvasW*0.325))/2, (canvasH - (canvasH*0.18)), (canvasW*0.1), (canvasH*0.06), [20, 20, 0, 0]);
       ctx.fill();
+
+      let YearIndex = DateArrayLocList.findIndex((e, i) => e[0] <= coords.x && (coords.x < (canvasW - (canvasW * (0.95 - (WidthCalcMain * (i+1)))))));
+      // && coords.x < (e[0] + WidthCalcMain)
+      console.log(  DateArrayList)
+
+      if(YearIndex != -1 ){
+      ctx.font = "10px Zen Dots";
+      ctx.fillStyle = "grey";
+      ctx.textAlign = "center";
+      ctx.fillText(DateArrayList[YearIndex], MouseMovement[0], MouseMovement[1]);
+      }
     } else if(TimeLineItem === 'Explainer'){
       ctx.beginPath();
       ctx.fillStyle = "#F9BF45";
@@ -136,6 +161,8 @@ const TimeLineAppCanvas = (props, Title) => {
     ctx.fillRect(0, ((canvasH - (canvasH*0.05))/2) - (canvasH*0.0625) , (canvasW), (canvasH*0.005));
     ctx.fill();
 
+
+
     ctx.font = "30px Zen Dots";
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
@@ -162,12 +189,28 @@ const TimeLineAppCanvas = (props, Title) => {
   
   window.addEventListener("resize", handleResize);
 
+  const handleMouseover = () => {
+    console.log('handle mouse fired');
+  }
+  
+  canvasRef.current.addEventListener("mousemove", (e) => {
+    console.log ('MouseMoved: '+  e.clientX)
+    setMouseMovement([coords.x, coords.y])
+  });
+
+  canvasRef.current.addEventListener("mouseout", (e) => {
+    console.log ('Mouse Out: '+  e.clientX)
+    setMouseMovement([0, 0])
+  });
+ 
+
 
 
   return () => {
     window.removeEventListener("resize", handleResize);
+   
   };
-}, [canvasH, canvasW, TimeLineItem]);
+}, [canvasH, canvasW, TimeLineItem, MouseMovement]);
 
     return <canvas ref={canvasRef} {...props}
     onClick={(e) => {
@@ -180,9 +223,11 @@ const TimeLineAppCanvas = (props, Title) => {
       } else if (coords.x > (canvasW/2)*1.101 && coords.x < ((canvasW/2)*1.3) && coords.y > (canvasH - (canvasH *0.125))){
         setTimeLineItem('Period')
       } else if (canvasRef.current) {
+        if(TimeLineItem === 'Period'){
         const ctx = canvasRef.current.getContext("2d");
         ctx.strokeStyle = "#0095DD";
         ctx?.strokeRect(coords.x, coords.y, 20, 30);
+      }
       }
     }}/>
   }
