@@ -1,20 +1,25 @@
-#TimeLineApp{
-    width:75%;
+
+
+  #TimeLineApp {
+    width: 80%;
     height: 50%;
-    /* width: 400px;
-    height: 500px; */
+    overflow: scroll; /* Hide any content that exceeds the container's size */
     background: #FFFFFF;
     margin: 0 auto;
     display: block;
     margin-top: 2em;
     margin-bottom: 2em;
     cursor: pointer;
-    overflow: scroll;
-        
-}
-
-
-#TimeLineApp canvas {
-    width: 200%;
-    height: 200%;
+  }
+  
+  .canvas-container {
+    width: 100%; /* The canvas-container takes the full width of the parent */
+    height: 100%; /* The canvas-container takes the full height of the parent */
+    /* Enable scrolling for the canvas-container */
+  }
+  
+  #TimeLineApp canvas {
+    width: 1200px; /* Set the desired width for the canvas */
+    height: 800px; /* Set the desired height for the canvas */
+    
   }

@@ -212,7 +212,10 @@ const TimeLineAppCanvas = (props, Title) => {
   };
 }, [canvasH, canvasW, TimeLineItem, MouseMovement]);
 
-    return <canvas ref={canvasRef} {...props}
+    return (
+      <div id="TimeLineApp" className="canvas-container">
+    
+    <canvas ref={canvasRef} {...props}
     onClick={(e) => {
       handleCoords((e));
       if(coords.x > (canvasW/2)*0.70 && coords.x <= ((canvasW/2)*0.85) && coords.y > (canvasH - (canvasH *0.125))) {
@@ -230,6 +233,8 @@ const TimeLineAppCanvas = (props, Title) => {
       }
       }
     }}/>
+    </div>
+    )
   }
 
 export default TimeLineAppCanvas
