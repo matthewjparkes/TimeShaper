@@ -16,7 +16,7 @@ const App = () => {
   const [Title, setTitle] = useState('Test Title');
   const [Theme, setTheme] = useState();
   const [StartDate, setStartDate] = useState('1980/01/01');
-  const [EndDate, setEndDate] = useState('2000/01/01');
+  const [EndDate, setEndDate] = useState('2020/01/01');
   const [Intervals, setIntervals] = useState(10);
   const [TimeType, setTimeType] = useState('Yearly');
 

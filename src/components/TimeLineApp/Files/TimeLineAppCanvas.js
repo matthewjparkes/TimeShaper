@@ -12,33 +12,48 @@ const TimeLineAppCanvas = (props, Title) => {
     const [DateArrayList, setDateArrayList] = useState();
     const [DateArrayLocList, setDateArrayLocList] = useState();
     const [WidthCalcMain, setWidthCalc] = useState();
+    const [DateBoundaryMain, setDateBoundary] = useState();
 
+useEffect(() => {
 
+  console.log('first useffect' + WidthCalcMain)
+  if(WidthCalcMain < 0.03){
+    canvasRef.current.width = (canvasRef.current.width/ (WidthCalcMain*25))
+  }
+
+  
+
+}, [WidthCalcMain])
 
 
  useEffect(() => {
 
+ 
+ // Draws the first and last date
   const drawDate = (ctx) => {
     ctx.font = "10px Zen Dots";
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
-    ctx.fillText(new Date(props.StartDate).getFullYear().toString(), canvasW - (canvasW*0.95), canvasH/2)
-    ctx.fillText(new Date(props.EndDate).getFullYear().toString(), canvasW - (canvasW*0.05), canvasH/2)
+    ctx.fillText(new Date(props.StartDate).getFullYear().toString(), canvasW - (canvasW*DateBoundaryMain), canvasH/2)
+    ctx.fillText(new Date(props.EndDate).getFullYear().toString(), canvasW - (canvasW*(1 - DateBoundaryMain)), canvasH/2)
 
   }
 
+  // Draws Date Intervals
   const drawIntervals = (ctx) => {
-    
+
+    // Saving Start/End date to a variable - converting it into daye
     const StartDateFigure = new Date(props.StartDate)
     const EndDateFigure = new Date(props.EndDate) 
+    let dateBoundary = 0.95;
     let TimeLength = 0;
     let IntervalCalc = 0;
     let WidthCalc = 0;
     let DateArray = [];
-    let DateArrayLoc = [[canvasW - (canvasW * (0.95)), 0]];
+    let DateArrayLoc = [[canvasW - (canvasW * (dateBoundary)), 0]];
     let YearPointer = 1980;
 
-
+    // Adding Start Date to Date Array + saving an Interval variable depending on TimeType passed through props
     switch ((props.TimeType)) {
       case 'Yearly':
         TimeLength = EndDateFigure.getFullYear() - StartDateFigure.getFullYear();
@@ -87,7 +102,10 @@ const TimeLineAppCanvas = (props, Title) => {
         break;
     }
 
+    // Co-efficient for calculating interval placement
     WidthCalc = (0.9/(TimeLength/IntervalCalc));
+
+    // Need something here to ensure the boundaries next to start and end dates
 
     for(let i = 0; i < (TimeLength/IntervalCalc) - 1; i ++) {
     let NewDate = Math.round(DateArray[i] + IntervalCalc)
@@ -95,17 +113,19 @@ const TimeLineAppCanvas = (props, Title) => {
     ctx.font = "10px Zen Dots";
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
-    ctx.fillText(NewDate, canvasW - (canvasW * (0.95 - (WidthCalc * (i+1)))), canvasH/2);
-    DateArrayLoc.push([canvasW - (canvasW * (0.95 - (WidthCalc * (i+1)))), canvasH/2 ])
+    ctx.fillText(NewDate, canvasW - (canvasW * (dateBoundary - (WidthCalc * (i+1)))), canvasH/2);
+    DateArrayLoc.push([canvasW - (canvasW * (dateBoundary - (WidthCalc * (i+1)))), canvasH/2 ])
 
     }
+
+    setDateBoundary(dateBoundary);
     setDateArrayList(DateArray);
     setDateArrayLocList(DateArrayLoc);
     setWidthCalc(WidthCalc);
   
   }
 
-
+// Draws the Yellow toolbar and title
   const drawInterface = () => {
     const ctx = canvasRef.current.getContext("2d");
     ctx.beginPath();
@@ -170,13 +190,19 @@ const TimeLineAppCanvas = (props, Title) => {
     drawDate(ctx)
     drawIntervals(ctx);
 
+   
+
   }
+
+  // Setting the Canvas to the size of the .getBoundingClientRect() - saving the canvas.width to a state
   const handleResize = () => {
+
+    // How do I keep the .GetBounding - so the UI doesn't go weird - but increase the canvas width so that it scrolls
 
     if (canvasRef.current) {
       const canvas = canvasRef.current;
       const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width;
+      canvas.width = rect.width ;
       canvas.height = rect.height;
       setCanvasH(canvas.height);
       setCanvasW(canvas.width);
@@ -184,18 +210,26 @@ const TimeLineAppCanvas = (props, Title) => {
     }
   };
   console.log('Use Effect Run')
+
+  // Resizes first
+  // Then draws the interface (Title and Toolbar first and then First and Last Dates and then the middle dates)
   handleResize();
   drawInterface();
+
+  //Once drawn it adds an event listner to listen for a resize of the window
   
   window.addEventListener("resize", handleResize);
 
   const handleMouseover = () => {
     console.log('handle mouse fired');
   }
+
+  // Then adds an event listener 
   
   canvasRef.current.addEventListener("mousemove", (e) => {
     console.log ('MouseMoved: '+  e.clientX)
     setMouseMovement([coords.x, coords.y])
+  
   });
 
   canvasRef.current.addEventListener("mouseout", (e) => {

@@ -25,18 +25,15 @@ const CreatePage2= props => {
                     <div className ="InputForm">
                         <div>
                             <label for='theme' id ='theme'>Start</label>
-                            <input type= 'date' id='theme' onSelect={handleStartDateChange}></input>
+                            <input type= 'date' id='theme' onChange={handleStartDateChange}></input>
                         </div>
                         <div>
                             <label for='title'>End</label>
-                            <input type= 'date' id='title' onSelect={handleEndDateChange}></input> <br/>
+                            <input type= 'date' id='title' onChange={handleEndDateChange}></input> <br/>
                         </div>
                         <div>
                             <label for='type'>Time Type</label>
                                 <select name="type" id="type" onChange={handleTimeTypeChange}>
-                                    <option value="Hourly">Hourly</option>
-                                    <option value="Daily">Daily</option>
-                                    <option value="Monthy">Monthly</option>
                                     <option value="Yearly">Yearly</option>
                                     <option value="2 Years">2 Years</option>
                                     <option value="5 Years">5 Years</option>
