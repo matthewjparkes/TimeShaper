@@ -4,6 +4,7 @@ import TimeLineApp from '../TimeLineApp';
 
 const TimeLineAppCanvas = (props, Title) => {
     const canvasRef = useRef(null);
+    const containerRef = useRef(null);
     const [coords, handleCoords] = MousePosition(true);
     const [canvasH, setCanvasH] = useState();
     const [canvasW, setCanvasW] = useState();
@@ -13,12 +14,14 @@ const TimeLineAppCanvas = (props, Title) => {
     const [DateArrayLocList, setDateArrayLocList] = useState();
     const [WidthCalcMain, setWidthCalc] = useState();
     const [DateBoundaryMain, setDateBoundary] = useState();
+    const [ScrollLocation, setScrollLocation] = useState();
 
 useEffect(() => {
 
   console.log('first useffect' + WidthCalcMain)
   if(WidthCalcMain < 0.03){
     canvasRef.current.width = (canvasRef.current.width/ (WidthCalcMain*25))
+    console.log(canvasRef.current)
   }
 
   
@@ -128,15 +131,18 @@ useEffect(() => {
 // Draws the Yellow toolbar and title
   const drawInterface = () => {
     const ctx = canvasRef.current.getContext("2d");
+    const canvas = containerRef.current
+    const CanvasWidth = canvas.clientWidth
+    console.log('scroll width' + canvas.scrollWidth + 'client width ' + canvas.clientWidth)
     ctx.beginPath();
     ctx.fillStyle = "#F9BF45";
-    ctx.roundRect((canvasW - (canvasW*0.35))/2, (canvasH - (canvasH*0.125)), (canvasW*0.35), (canvasH*0.125), [20, 20, 0, 0]);
+    ctx.roundRect((ScrollLocation+(CanvasWidth/5)), (canvasH - (canvasH*0.125)), (CanvasWidth/1.6), (canvasH*0.125), [20, 20, 0, 0]);
     ctx.fill();
 
     if(TimeLineItem === 'Event'){
       ctx.beginPath();
       ctx.fillStyle = "#F9BF45";
-      ctx.roundRect((canvasW - (canvasW*0.325))/2, (canvasH - (canvasH*0.18)), (canvasW*0.1), (canvasH*0.06), [20, 20, 0, 0]);
+      ctx.roundRect((ScrollLocation+(CanvasWidth/4.5)), (canvasH - (canvasH*0.18)), (canvasW*0.1), (canvasH*0.06), [20, 20, 0, 0]);
       ctx.fill();
 
       let YearIndex = DateArrayLocList.findIndex((e, i) => e[0] <= coords.x && (coords.x < (canvasW - (canvasW * (0.95 - (WidthCalcMain * (i+1)))))));
@@ -152,29 +158,29 @@ useEffect(() => {
     } else if(TimeLineItem === 'Explainer'){
       ctx.beginPath();
       ctx.fillStyle = "#F9BF45";
-      ctx.roundRect((canvasW - (canvasW*0.1335))/2, (canvasH - (canvasH*0.18)), (canvasW*0.13), (canvasH*0.06), [20, 20, 0, 0]);
+      ctx.roundRect((ScrollLocation+(CanvasWidth/2.75)), (canvasH - (canvasH*0.18)), (canvasW*0.13), (canvasH*0.06), [20, 20, 0, 0]);
       ctx.fill();
     } else if (TimeLineItem === 'Period'){
       ctx.beginPath();
       ctx.fillStyle = "#F9BF45";
-      ctx.roundRect((canvasW - (canvasW*0.435)), (canvasH - (canvasH*0.18)), (canvasW*0.1), (canvasH*0.06), [20, 20, 0, 0]);
+      ctx.roundRect((ScrollLocation+(CanvasWidth/1.75)), (canvasH - (canvasH*0.18)), (canvasW*0.1), (canvasH*0.06), [20, 20, 0, 0]);
       ctx.fill();
     }
 
     ctx.font = "20px Zen Dots";
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
-    ctx.fillText('Event', (canvasW/2)*0.775, TimeLineItem === 'Event' ? canvasH - (canvasH *0.13) : canvasH - (canvasH *0.05));
+    ctx.fillText('Event', (ScrollLocation+(CanvasWidth/3.5)), TimeLineItem === 'Event' ? canvasH - (canvasH *0.13) : canvasH - (canvasH *0.05));
 
     ctx.font = "20px Zen Dots";
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
-    ctx.fillText('Explainer', (canvasW/2), TimeLineItem === 'Explainer' ? canvasH - (canvasH *0.13) : canvasH - (canvasH *0.05));
+    ctx.fillText('Explainer', (ScrollLocation+(CanvasWidth/2)), TimeLineItem === 'Explainer' ? canvasH - (canvasH *0.13) : canvasH - (canvasH *0.05));
 
     ctx.font = "20px Zen Dots";
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
-    ctx.fillText('Period', (canvasW/2)*1.23, TimeLineItem === 'Period' ? canvasH - (canvasH *0.13) : canvasH - (canvasH *0.05));
+    ctx.fillText('Period', (ScrollLocation+(CanvasWidth/1.39)), TimeLineItem === 'Period' ? canvasH - (canvasH *0.13) : canvasH - (canvasH *0.05));
 
     ctx.beginPath();
     ctx.fillStyle = "#000000";
@@ -186,7 +192,7 @@ useEffect(() => {
     ctx.font = "30px Zen Dots";
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
-    ctx.fillText(props.Title, canvasW/2, canvasH - (canvasH *0.90))
+    ctx.fillText(props.Title, (ScrollLocation+(CanvasWidth/2)), canvasH - (canvasH *0.90))
     drawDate(ctx)
     drawIntervals(ctx);
 
@@ -236,6 +242,10 @@ useEffect(() => {
     console.log ('Mouse Out: '+  e.clientX)
     setMouseMovement([0, 0])
   });
+
+  containerRef.current.addEventListener("scroll", (e) => {
+    setScrollLocation(containerRef.current.scrollLeft)
+  });
  
 
 
@@ -244,10 +254,10 @@ useEffect(() => {
     window.removeEventListener("resize", handleResize);
    
   };
-}, [canvasH, canvasW, TimeLineItem, MouseMovement]);
+}, [canvasH, canvasW, TimeLineItem, MouseMovement, ScrollLocation]);
 
     return (
-      <div id="TimeLineApp" className="canvas-container">
+      <div id="TimeLineApp" className="canvas-container" ref={containerRef}>
     
     <canvas ref={canvasRef} {...props}
     onClick={(e) => {
