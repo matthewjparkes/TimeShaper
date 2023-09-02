@@ -17,6 +17,7 @@ const CreatePage2= props => {
     const handleIntervalsChange =(e)=>{
         props.SetIntervals(e.target.value)
     }
+
     return (
         <div>
             <div className="CreatePageContainer">
@@ -44,10 +45,7 @@ const CreatePage2= props => {
                                     <option value="100 Years">100 Years</option>
                                 </select>
                         </div>
-                        <div>
-                            <label for='theme' id ='theme'>Intervals</label>
-                            <input type= 'number' id='theme'onChange={handleIntervalsChange}></input>
-                        </div>
+                   
                     </div>
                     <div className='NextButtons'>
                         <Link className='ColouredBox' to='/app'>Next</Link>

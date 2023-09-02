@@ -158,19 +158,19 @@ useEffect(() => {
     } else if(TimeLineItem === 'Explainer'){
       ctx.beginPath();
       ctx.fillStyle = "#F9BF45";
-      ctx.roundRect((ScrollLocation+(CanvasWidth/2.75)), (canvasH - (canvasH*0.18)), (canvasW*0.13), (canvasH*0.06), [20, 20, 0, 0]);
+      ctx.roundRect((ScrollLocation+(CanvasWidth/2.63)), (canvasH - (canvasH*0.18)), (canvasW*0.13), (canvasH*0.06), [20, 20, 0, 0]);
       ctx.fill();
     } else if (TimeLineItem === 'Period'){
       ctx.beginPath();
       ctx.fillStyle = "#F9BF45";
-      ctx.roundRect((ScrollLocation+(CanvasWidth/1.75)), (canvasH - (canvasH*0.18)), (canvasW*0.1), (canvasH*0.06), [20, 20, 0, 0]);
+      ctx.roundRect((ScrollLocation+(CanvasWidth/1.6)), (canvasH - (canvasH*0.18)), (canvasW*0.1), (canvasH*0.06), [20, 20, 0, 0]);
       ctx.fill();
     }
 
     ctx.font = "20px Zen Dots";
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
-    ctx.fillText('Event', (ScrollLocation+(CanvasWidth/3.5)), TimeLineItem === 'Event' ? canvasH - (canvasH *0.13) : canvasH - (canvasH *0.05));
+    ctx.fillText('Event', (ScrollLocation+(CanvasWidth/3.25)), TimeLineItem === 'Event' ? canvasH - (canvasH *0.13) : canvasH - (canvasH *0.05));
 
     ctx.font = "20px Zen Dots";
     ctx.fillStyle = "black";
@@ -180,7 +180,7 @@ useEffect(() => {
     ctx.font = "20px Zen Dots";
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
-    ctx.fillText('Period', (ScrollLocation+(CanvasWidth/1.39)), TimeLineItem === 'Period' ? canvasH - (canvasH *0.13) : canvasH - (canvasH *0.05));
+    ctx.fillText('Period', (ScrollLocation+(CanvasWidth/1.4)), TimeLineItem === 'Period' ? canvasH - (canvasH *0.13) : canvasH - (canvasH *0.05));
 
     ctx.beginPath();
     ctx.fillStyle = "#000000";
@@ -262,12 +262,12 @@ useEffect(() => {
     <canvas ref={canvasRef} {...props}
     onClick={(e) => {
       handleCoords((e));
-      if(coords.x > (canvasW/2)*0.70 && coords.x <= ((canvasW/2)*0.85) && coords.y > (canvasH - (canvasH *0.125))) {
+      if(coords.x > (ScrollLocation+(canvasW/8.5)) && coords.x <= (ScrollLocation+(canvasW/4.5)) && coords.y > (canvasH - (canvasH *0.125))) {
         setTimeLineItem('Event');
         console.log('change')
-      } else if (coords.x > (canvasW/2)*0.85 && coords.x < ((canvasW/2)*1.1) && coords.y > (canvasH - (canvasH *0.125))){
+      } else if (coords.x > ScrollLocation+(canvasW/4.5) && coords.x < ScrollLocation+(canvasW/2.9) && coords.y > (canvasH - (canvasH *0.125))){
         setTimeLineItem('Explainer');
-      } else if (coords.x > (canvasW/2)*1.101 && coords.x < ((canvasW/2)*1.3) && coords.y > (canvasH - (canvasH *0.125))){
+      } else if (coords.x > ScrollLocation+(canvasW/2.9) && coords.x < ScrollLocation+(canvasW/2.2) && coords.y > (canvasH - (canvasH *0.125))){
         setTimeLineItem('Period')
       } else if (canvasRef.current) {
         if(TimeLineItem === 'Period'){
